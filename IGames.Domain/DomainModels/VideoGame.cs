@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TicketShop.Domain.DomainModels
+namespace IGames.Domain.DomainModels
 {
     public class VideoGame : BaseEntity
     {
