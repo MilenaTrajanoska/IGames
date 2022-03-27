@@ -30,7 +30,6 @@
 	<ItemGroup>
 	  <Folder Include="Views\Account\" />
 	  <Folder Include="Views\User\" />
-	  <Folder Include="Views\VideoGames\" />
 	  <Folder Include="Views\ShoppingCart\" />
 	  <Folder Include="Views\Order\" />
 	</ItemGroup>
