@@ -45,7 +45,7 @@ namespace IGames.Services.Implementation
             foreach (var game in order.GamesInOrder)
             {
                 totalPrice += game.game.GamePrice * game.Quantity;
-                sb.Append("Game for movie: " + game.game.GameTitle);
+                sb.Append("Video Game: " + game.game.GameTitle);
                 sb.Append("\tPrice: " + game.game.Price.ToString() + "\n");
                 numGames += game.Quantity;
             }
