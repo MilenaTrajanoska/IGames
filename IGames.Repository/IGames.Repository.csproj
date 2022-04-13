@@ -13,9 +13,4 @@
     <ProjectReference Include="..\IGames.Domain\IGames.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interface\" />
-    <Folder Include="Implementation\" />
-  </ItemGroup>
-
 </Project>
