@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IGames.Domain.Identity;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

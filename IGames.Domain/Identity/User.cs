@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using IGames.Domain.DomainModels;
 
 namespace IGames.Domain.Identity
 {
@@ -10,7 +11,7 @@ namespace IGames.Domain.Identity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public virtual Cart UserCart { get; set; }
+        public virtual ShoppingCart UserCart { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }
 }
