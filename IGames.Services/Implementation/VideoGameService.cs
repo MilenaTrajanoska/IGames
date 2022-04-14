@@ -1,9 +1,11 @@
 ﻿using ClosedXML.Excel;
 using IGames.Domain.DomainModels;
+using IGames.Repository.Interface;
 using IGames.Services.Interface;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace IGames.Services.Implementation
@@ -33,6 +35,11 @@ namespace IGames.Services.Implementation
 
                 if (game != null)
                 {
+                    if (game.Quantity < item.Quantity)
+                    {
+                        return false;
+                    }
+
                     VideoGameInShoppingCart itemToAdd = new VideoGameInShoppingCart
                     {
                         Id = Guid.NewGuid(),
@@ -43,7 +50,10 @@ namespace IGames.Services.Implementation
                         Quantity = item.Quantity
                     };
 
+                    game.Quantity = game.Quantity - item.Quantity;
+                    this._videoGameRepository.Update(game);
                     this._videoGameInShoppingCartRepository.Insert(itemToAdd);
+                    
                     return true;
                 }
                 return false;
@@ -78,7 +88,7 @@ namespace IGames.Services.Implementation
         {
             var games = this._videoGameRepository.GetAll().Where(g =>
             {
-                return g.Genre.Equals(genre);
+                return g.Genre.Equals(genre) && g.Quantity > 0;
             });
 
             return games.ToList();
