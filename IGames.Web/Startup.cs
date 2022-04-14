@@ -12,6 +12,11 @@ using IGames.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using IGames.Domain.DomainModels;
+using IGames.Repository.Interface;
+using IGames.Repository.Implementation;
+using IGames.Services.Interface;
+using IGames.Services.Implementation;
 
 namespace IGames.Web
 {
@@ -32,6 +37,27 @@ namespace IGames.Web
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Role.ADMIN,
+               policy => policy.RequireClaim(Role.ADMIN));
+                options.AddPolicy(Role.STANDARD_USER,
+                    policy => policy.RequireClaim(Role.STANDARD_USER));
+            });
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
+
+            services.Configure<StripeConfig>(Configuration.GetSection("StripeConfig"));
+
+
+            services.AddTransient<IVideoGameService, VideoGameService>();
+            services.AddTransient<IShoppingCartService, ShoppingCartService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IUserService, UserService>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
