@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IGames.Services.Interface
 {
-    interface IUserService
+    public interface IUserService
     {
         List<string> createUsersFromFile(string filePath);
         public IEnumerable<User> getAllUsers();
