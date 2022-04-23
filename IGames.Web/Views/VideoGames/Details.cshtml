@@ -1,0 +1,58 @@
+﻿@model IGames.Domain.DomainModels.VideoGame
+
+@{
+    ViewData["Title"] = "Details for the video game";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="bg-info text-white p-5">
+    <h1>Details for Video Game: @Model.GameTitle</h1>
+</div>
+<hr class="p-3">
+<div>
+    <h4>Video Game details: </h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GameTitle)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GameTitle)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@Model.Image" style="max-width:200px" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+
+    <form asp-controller="VideoGames" asp-action="Edit" method="get">
+        <input name="Id" type="hidden" asp-for="Id" />
+        <input type="submit" value="Edit Video Game" class="btn btn-secondary" /> |
+    </form>
+    <a asp-action="Index" class="btn btn-link">Back to List</a>
+</div>
