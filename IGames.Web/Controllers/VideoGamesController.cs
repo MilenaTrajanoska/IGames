@@ -16,6 +16,7 @@ namespace IGames.Web.Controllers
         private readonly IVideoGameService _videoGameService;
 
         private readonly List<SelectListItem> Genres = new List<SelectListItem>{
+                    new SelectListItem  { Value = GenreEnum.ALL.ToString(), Text = GenreEnum.ALL.ToString()},
                     new SelectListItem  { Value = GenreEnum.ACTION.ToString(), Text = GenreEnum.ACTION.ToString()},
                     new SelectListItem  { Value = GenreEnum.COMEDY.ToString(), Text = GenreEnum.COMEDY.ToString() },
                     new SelectListItem  { Value = GenreEnum.DRAMA.ToString(), Text = GenreEnum.DRAMA.ToString() },
@@ -191,9 +192,14 @@ namespace IGames.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost, ActionName("FilterTicketsByDate")]
+        [HttpPost]
         public IActionResult FilterVideoGamesByGenre(GenreEnum genre)
         {
+            TempData["Genres"] = Genres;
+            if (genre.Equals(GenreEnum.ALL))
+            {
+                return View("Index", _videoGameService.GetAllVideoGames());
+            }
             var games = _videoGameService.FilterVideoGamesByGenre(genre);
             if (games != null && games.Count != 0)
             {

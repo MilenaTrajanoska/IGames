@@ -2,6 +2,7 @@ namespace IGames.Domain.DomainModels
 {
     public enum GenreEnum
     {
+        ALL,
         HORROR,
         COMEDY,
         ROMANCE,
