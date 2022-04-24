@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using IGames.Repository.Interface;
+using IGames.Domain.DomainModels;
 
 namespace IGames.Services.Implementation
 {
@@ -48,7 +49,7 @@ namespace IGames.Services.Implementation
                             NormalizedUserName = email,
                             EmailConfirmed = true,
                             PhoneNumberConfirmed = true,
-                            UserCart = new Cart()
+                            UserCart = new ShoppingCart()
                         };
 
                         var result = _userManager.FindByEmailAsync(user.Email).Result;

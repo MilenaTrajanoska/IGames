@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
 using IGames.Domain.DomainModels;
 
 namespace IGames.Domain.Identity

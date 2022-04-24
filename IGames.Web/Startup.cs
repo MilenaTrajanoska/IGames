@@ -8,15 +8,17 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
-using IGames.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using IGames.Domain.DomainModels;
 using IGames.Repository.Interface;
 using IGames.Repository.Implementation;
 using IGames.Services.Interface;
 using IGames.Services.Implementation;
+using Stripe;
+using IGames.Domain.Identity;
+using Microsoft.Extensions.Hosting;
+using IGames.Repository;
 
 namespace IGames.Web
 {
@@ -33,9 +35,10 @@ namespace IGames.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+               options.UseSqlServer(
+                   Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddAuthorization(options =>
@@ -52,19 +55,19 @@ namespace IGames.Web
 
             services.Configure<StripeConfig>(Configuration.GetSection("StripeConfig"));
 
-
             services.AddTransient<IVideoGameService, VideoGameService>();
             services.AddTransient<IShoppingCartService, ShoppingCartService>();
-            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderService, Services.Implementation.OrderService>();
             services.AddTransient<IUserService, UserService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StripeConfiguration.SetApiKey(Configuration.GetSection("StripeConfig")["SecretKey"]);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -73,7 +76,6 @@ namespace IGames.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -88,7 +90,7 @@ namespace IGames.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=VideoGames}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

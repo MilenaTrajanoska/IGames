@@ -1,4 +1,5 @@
 ﻿using IGames.Domain.DomainModels;
+using IGames.Domain.DTO;
 using System;
 using System.Collections.Generic;
 

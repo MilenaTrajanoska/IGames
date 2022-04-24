@@ -22,7 +22,7 @@ namespace IGames.Repository.Implementation
             return orders
                 .Include(o => o.ApplicationUser)
                 .Include(o => o.VideoGamesInOrder)
-                .Include("TicketsInOrder.ticket")
+                .Include("VideoGamesInOrder.Game")
                 .ToListAsync().Result;
         }
 
@@ -31,7 +31,7 @@ namespace IGames.Repository.Implementation
             return orders
                .Include(o => o.ApplicationUser)
                .Include(o => o.VideoGamesInOrder)
-               .Include("VideoGamesInOrder.ticket")
+               .Include("VideoGamesInOrder.Game")
                .SingleOrDefaultAsync(o => o.Id == model.Id).Result;
         }
     }

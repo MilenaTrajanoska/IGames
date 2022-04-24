@@ -42,11 +42,11 @@ namespace IGames.Services.Implementation
             StringBuilder sb = new StringBuilder();
             var totalPrice = 0.0;
             var numGames = 0;
-            foreach (var game in order.GamesInOrder)
+            foreach (var game in order.VideoGamesInOrder)
             {
-                totalPrice += game.game.GamePrice * game.Quantity;
-                sb.Append("Video Game: " + game.game.GameTitle);
-                sb.Append("\tPrice: " + game.game.Price.ToString() + "\n");
+                totalPrice += game.Game.Price * game.Quantity;
+                sb.Append("Video Game: " + game.Game.GameTitle);
+                sb.Append("\tPrice: " + game.Game.Price.ToString() + "\n");
                 numGames += game.Quantity;
             }
 

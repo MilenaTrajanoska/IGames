@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using IGames.Domain.DomainModels;
+using IGames.Domain.DTO;
 using IGames.Repository.Interface;
 using IGames.Services.Interface;
 using System;
