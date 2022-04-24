@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using IGames.Domain.DomainModels;
 using IGames.Domain.DTO;
 using IGames.Services.Interface;
@@ -187,7 +185,6 @@ namespace IGames.Web.Controllers
 
         // POST: VideoGames/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(Guid id)
         {
             this._videoGameService.DeleteVideoGame(id);

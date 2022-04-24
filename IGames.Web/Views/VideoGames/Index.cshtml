@@ -67,7 +67,7 @@
                     <div class="row">
                         <a asp-controller="VideoGames" asp-action="AddVideoGameToCart" asp-route-id="@item.Id" class="btn btn-success">Add to Cart</a>&nbsp;
                         <a asp-controller="VideoGames" asp-action="Edit" asp-route-videoGameId="@item.Id" class="btn btn-secondary">Edit Details</a>&nbsp;
-                        <a asp-controller="VideoGames" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        <button class="btn btn-danger js-delete" data-id="@item.Id">Delete</button>
                     </div>
                 </div>
             </div>
@@ -79,3 +79,35 @@
     }
 
 </div>
+@section Scripts{ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<script>
+    $(".js-delete").click(function () {
+        var button = $(this);
+        bootbox.confirm({
+            message: "Are you sure you want to delete the video game?",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (res) {
+                if (res) {
+                    $.ajax({
+                        method: "POST",
+                        url: "/VideoGames/Delete/" + button.attr("data-id"),
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+    }
