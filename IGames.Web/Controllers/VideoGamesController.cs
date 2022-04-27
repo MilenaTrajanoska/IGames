@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using IGames.Domain.DomainModels;
 using IGames.Domain.DTO;
@@ -33,11 +34,68 @@ namespace IGames.Web.Controllers
         }
 
         // GET: VideoGames
-        public IActionResult Index()
+        public IActionResult Index(
+                string sortOrder,
+                string currentFilter,
+                string searchString,
+                int? pageNumber,
+                GenreEnum genre = GenreEnum.ALL
+                )
         {
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["PriceSortParm"] = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+            ViewData["QuantitySortParm"] = sortOrder == "quantity_asc" ? "quantity_desc" : "quantity_asc";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["Genre"] = genre;
+
             var allGames = this._videoGameService.GetAllVideoGames();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                allGames = allGames.Where(s => s.GameTitle.ToLower().Contains(searchString.ToLower())).ToList();
+            }
+            if (!genre.Equals(GenreEnum.ALL))
+            {
+                allGames = allGames.Where(s => s.Genre.Equals(genre)).ToList();
+            }
+
+            switch (sortOrder)
+            {
+                case "price_desc":
+                    allGames = allGames.OrderByDescending(v => v.Price).ToList();
+                    break;
+                case "quantity_asc":
+                    allGames = allGames.OrderBy(v => v.Quantity).ToList();
+                    break;
+                case "quantity_desc":
+                    allGames = allGames.OrderByDescending(v => v.Quantity).ToList();
+                    break;
+                default:
+                    allGames = allGames.OrderBy(s => s.Price).ToList();
+                    break;
+            }
+
+            foreach (var g in Genres)
+            {
+                if(g.Equals(genre))
+                {
+                    g.Selected = true;
+                }
+            }
+
             ViewData["Genres"] = Genres;
-            return View(allGames);
+
+            int pageSize = 9;
+            return View(PaginatedList<VideoGame>.CreateAsync(allGames.AsQueryable(), pageNumber ?? 1, pageSize));
         }
 
         [Authorize]
