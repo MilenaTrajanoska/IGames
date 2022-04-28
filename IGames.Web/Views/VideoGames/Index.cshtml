@@ -15,7 +15,7 @@
         g = (IEnumerable<SelectListItem>)ViewData["Genres"];
     }
 }
-<div class="p-5 bg-info text-white">
+<div class="p-5" style="background-color: #ffde4d">
     <h1>Available VideoGames</h1>
 </div>
 @if (User.IsInRole("ADMIN"))
@@ -32,7 +32,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <a class="btn btn-primary" asp-controller="VideoGames" asp-action="Create">Create New VideoGame</a>
+                <a class="btn border-secondary" style="background-color: #ffde4d" asp-controller="VideoGames" asp-action="Create">Create New VideoGame</a>
             </div>
 
             <div class="col-md-6">
@@ -75,7 +75,7 @@
                     <input type="hidden" name="sortOrder" value="@ViewData["CurrentSort"]" />
                     <input type="hidden" name="currentFilter" value="@ViewData["CurrentFilter"]" />
                     <input type="hidden" name="pageNumber" value="@Model.PageIndex" />
-                    <input type="submit" value="Filter" class="form-control btn btn-primary" />
+                    <input type="submit" value="Filter" class="form-control btn btn-primary"/>
                 </form>
             </div>
         </div>
@@ -84,10 +84,10 @@
 
             </div>
             <div class="col-md-3">
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageNumber="@Model.PageIndex" asp-route-genre="@ViewData["Genre"]" class="btn btn-info">Order by Price &#8593;&#8595;</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageNumber="@Model.PageIndex" asp-route-genre="@ViewData["Genre"]" class="btn btn-primary">Order by Price &#8593;&#8595;</a>
             </div>
             <div class="col-md-3">
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["QuantitySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageNumber="@Model.PageIndex" asp-route-genre="@ViewData["Genre"]" class="btn btn-info">Order by Quantity &#8593;&#8595;</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["QuantitySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageNumber="@Model.PageIndex" asp-route-genre="@ViewData["Genre"]" class="btn btn-primary">Order by Quantity &#8593;&#8595;</a>
             </div>
             <div class="col-md-3">
                
@@ -124,11 +124,18 @@
 
                 <div class="card-footer" style="margin:auto;">
                     <div class="row">
-                        <a asp-controller="VideoGames" asp-action="AddVideoGameToCart" asp-route-id="@item.Id" class="btn btn-success">Add to Cart</a>&nbsp;
                         @if (User.IsInRole("ADMIN"))
                         {
-                            <a asp-controller="VideoGames" asp-action="Edit" asp-route-videoGameId="@item.Id" class="btn btn-secondary pr-2">Edit Details</a>
+                        <div class="col-md">
+                            <a asp-controller="VideoGames" asp-action="Edit" asp-route-videoGameId="@item.Id" class="btn btn-secondary pr-2">Edit</a>
+                        </div>
+                        <div class="col-md">
                             <button class="btn btn-danger js-delete" data-id="@item.Id">Delete</button>
+                        </div>
+                        }
+                        else
+                        {
+                            <a asp-controller="VideoGames" asp-action="AddVideoGameToCart" asp-route-id="@item.Id" class="btn btn-success">Add to Cart</a>
                         }
                     </div>
                 </div>
@@ -141,28 +148,30 @@
     }
 
 </div>
-<div class="row">
+<div class="row text-center">
     @{
         var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
         var nextDisabled = !Model.HasNextPage ? "disabled" : "";
     }
-
-    <a asp-action="Index"
-       asp-route-sortOrder="@ViewData["CurrentSort"]"
-       asp-route-pageNumber="@(Model.PageIndex - 1)"
-       asp-route-currentFilter="@ViewData["CurrentFilter"]"
-       asp-route-genre="@ViewData["Genre"]"
-       class="btn btn-default @prevDisabled">
-        Previous
-    </a>
-    <a asp-action="Index"
-       asp-route-sortOrder="@ViewData["CurrentSort"]"
-       asp-route-pageNumber="@(Model.PageIndex + 1)"
-       asp-route-currentFilter="@ViewData["CurrentFilter"]"
-       asp-route-genre="@ViewData["Genre"]"
-       class="btn btn-default @nextDisabled">
-        Next
-    </a>
+    <div class="col">
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           asp-route-genre="@ViewData["Genre"]"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a> &nbsp;&nbsp;&nbsp;
+        <span>@Model.PageIndex</span> &nbsp;&nbsp;&nbsp;
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           asp-route-genre="@ViewData["Genre"]"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
+    </div>
 </div>
 @section Scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>

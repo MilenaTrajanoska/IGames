@@ -134,7 +134,7 @@ namespace IGames.Web.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, Role.STANDARD_USER.ToString());
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "VideoGames");
                 }
                 else if (result.IsLockedOut)
                 {

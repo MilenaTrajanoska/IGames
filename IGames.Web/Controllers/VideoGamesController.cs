@@ -28,6 +28,8 @@ namespace IGames.Web.Controllers
                     new SelectListItem  { Value = GenreEnum.SCI_FI.ToString(), Text = GenreEnum.SCI_FI.ToString() },
                     new SelectListItem  { Value = GenreEnum.THRILLER.ToString(), Text = GenreEnum.THRILLER.ToString() },
                 };
+
+        private readonly int PageSize = 3;
         public VideoGamesController(IVideoGameService videoGameService)
         {
             _videoGameService = videoGameService;
@@ -94,8 +96,7 @@ namespace IGames.Web.Controllers
 
             ViewData["Genres"] = Genres;
 
-            int pageSize = 9;
-            return View(PaginatedList<VideoGame>.CreateAsync(allGames.AsQueryable(), pageNumber ?? 1, pageSize));
+            return View(PaginatedList<VideoGame>.CreateAsync(allGames.AsQueryable(), pageNumber ?? 1, PageSize));
         }
 
         [Authorize]
@@ -114,10 +115,16 @@ namespace IGames.Web.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var game = this._videoGameService.GetDetailsForVideoGame(item.VideoGameId);
+            item.SelectedVideoGame = game;
+            if (item.Quantity <= 0)
+            {
+                ViewData["Error Message"] = "Please enter a value greater than zero for the quantity you would like to purchase.";
+                return View(item);
+            }
             if (game.Quantity < item.Quantity)
             {
                 ViewData["Error Message"] = "The available quantity for this video game in stock is "
-                    + game.Quantity + ".\nPlease select an adequate amount to purchase.";
+                    + game.Quantity + ".\nPlease enter an adequate amount to purchase.";
                 return View(item);
             }
 

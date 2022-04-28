@@ -15,13 +15,15 @@ namespace IGames.Services.Implementation
         private IUserRepository _userRepository;
         private IRepository<Order> _orderRepository;
         private IRepository<VideoGameInOrder> _videoGamesInOrderRepository;
+        private IRepository<VideoGame> _videoGameRepository;
 
-        public ShoppingCartService(IRepository<ShoppingCart> shoppingCartRepository, IUserRepository userRepository, IRepository<Order> orderRepository, IRepository<VideoGameInOrder> videoGamesInOrderRepository)
+        public ShoppingCartService(IRepository<ShoppingCart> shoppingCartRepository, IUserRepository userRepository, IRepository<Order> orderRepository, IRepository<VideoGameInOrder> videoGamesInOrderRepository, IRepository<VideoGame> videoGameRepository)
         {
             _shoppingCartRepository = shoppingCartRepository;
             _orderRepository = orderRepository;
             _userRepository = userRepository;
             _videoGamesInOrderRepository = videoGamesInOrderRepository;
+            _videoGameRepository = videoGameRepository;
         }
         public bool deleteVideoGameFromShoppingCart(string userId, Guid gameId)
         {
@@ -31,7 +33,10 @@ namespace IGames.Services.Implementation
                 var userCart = user.UserCart;
                 var gameToDelete = userCart.VideoGamesInShoppingCart.Where(g => g.VideoGame.Id.Equals(gameId)).FirstOrDefault();
                 userCart.VideoGamesInShoppingCart.Remove(gameToDelete);
+                var gameToUpdate = gameToDelete.VideoGame;
+                gameToUpdate.Quantity += gameToDelete.Quantity;
                 this._shoppingCartRepository.Update(userCart);
+                this._videoGameRepository.Update(gameToUpdate);
                 return true;
             }
             return false;
