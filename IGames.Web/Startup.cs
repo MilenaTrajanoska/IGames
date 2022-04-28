@@ -19,6 +19,7 @@ using Stripe;
 using IGames.Domain.Identity;
 using Microsoft.Extensions.Hosting;
 using IGames.Repository;
+using IGames.Domain;
 
 namespace IGames.Web
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IGames.Domain.DomainModels
+namespace IGames.Domain
 {
     public class StripeConfig
     {

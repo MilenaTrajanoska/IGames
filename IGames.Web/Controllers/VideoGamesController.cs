@@ -86,7 +86,7 @@ namespace IGames.Web.Controllers
 
             foreach (var g in Genres)
             {
-                if(g.Equals(genre))
+                if(g.Value.Equals(genre.ToString()))
                 {
                     g.Selected = true;
                 }

@@ -59,13 +59,11 @@
                 <form asp-action="Index" method="get">
                     <div class="form-group no-color">
                         <p>
-                            Find game by title: <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]"  style="max-width: 300px;"/>
-                            <input type="submit" value="Search" style="max-width: 100px; background: url(img/search-icon-large.png)"/> |
+                            Find game by title: <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]"  style="max-width: 300px; display: inline;"/>
+                            <button type="submit" style="display:inline; width: 10%; height: 5%; background-color: white; border: none"><i class="fa fa-search text-info" style="padding: 10px; margin:auto"></i></button>
                         </p>
                     </div>
                 </form>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageNumber="@Model.PageIndex" asp-route-genre="@ViewData["Genre"]" class="btn btn-info">Order by Price &#8593;&#8595;</a>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["QuantitySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageNumber="@Model.PageIndex" asp-route-genre="@ViewData["Genre"]" class="btn btn-info">Order by Quantity &#8593;&#8595;</a>
             </div>
             <div class="col-md-6">
                 <form class='form-inline float-right' method="get" asp-controller="VideoGames" asp-action="Index">
@@ -79,6 +77,20 @@
                     <input type="hidden" name="pageNumber" value="@Model.PageIndex" />
                     <input type="submit" value="Filter" class="form-control btn btn-primary" />
                 </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-3">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageNumber="@Model.PageIndex" asp-route-genre="@ViewData["Genre"]" class="btn btn-info">Order by Price &#8593;&#8595;</a>
+            </div>
+            <div class="col-md-3">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["QuantitySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-pageNumber="@Model.PageIndex" asp-route-genre="@ViewData["Genre"]" class="btn btn-info">Order by Quantity &#8593;&#8595;</a>
+            </div>
+            <div class="col-md-3">
+               
             </div>
         </div>
     }
