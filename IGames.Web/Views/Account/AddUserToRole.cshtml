@@ -1,0 +1,46 @@
+﻿@model IGames.Domain.Identity.DTO.UserAddOrRemoveRole
+
+@{
+    ViewData["Title"] = "Add To Role";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-info text-white p-5">
+    <h1>Add the selected user to role:</h1>
+</div>
+
+<hr class="p-3" />
+@if (ViewData["Error"] != null)
+{
+    <p class="text-danger">@ViewData["Error"]</p>
+    <hr class="p-3" />
+}
+
+@if (ViewData["Success"] != null)
+{
+    <p class="text-success">@ViewData["Success"]</p>
+    <hr class="p-3" />
+}
+
+<div class="row">
+    <div class="col-md-4 m-auto">
+        <form asp-action="AddUserToRole" method="post">
+            <input type="hidden" asp-for="@Model.Id" />
+            <div class="form-group">
+                <label asp-for="@Model.Email"></label>
+                <input disabled type="text" asp-for="@Model.Email" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.RoleName"></label>
+                @{ var roles = (IEnumerable<SelectListItem>)ViewData["Roles"]; }
+                <select asp-for="@Model.RoleName" asp-items="roles" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add to Role" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="ManageUsers">Back to User List</a>
+</div>
