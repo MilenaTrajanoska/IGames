@@ -8,6 +8,7 @@
 <div class="p-5" style="background-color:#ffde4d ">
     <h1>Create a new Video Game</h1>
 </div>
+<br />
 <h4>Enter video game details:</h4>
 <hr />
 @{ var genres = (IEnumerable<SelectListItem>)ViewData["Genres"]; }
@@ -46,7 +47,7 @@
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create Video Game" class="btn btn-primary" />
+                <input type="submit" value="Create Video Game" class="btn btn-dark" />
             </div>
         </form>
     </div>

@@ -1,0 +1,31 @@
+﻿<form asp-controller="User" asp-action="ImportUsers" method="post" enctype="multipart/form-data">
+
+    <div class="p-5" style="background-color: #ffde4d">
+        <h1>Import Users</h1>
+    </div>
+    @if (ViewData["Success"] != null)
+    {
+        <div><p class="text-success">@ViewData["Success"]</p></div>
+    }
+    else if (ViewData["Error"] != null)
+    {
+        foreach (var error in (List<string>)ViewData["Error"])
+        {
+            <div><p class="text-danger">@error</p></div>
+        }
+    }
+    <hr />
+    <div class="p-3 bg-dark text-white">
+        Import users by uploading an excel document.
+    </div>
+    <hr />
+    <div class="form-group w-25">
+        <label>Import excel file:</label>
+        <input type="file" name="file" class="form-control" />
+    </div>
+
+    <hr />
+
+    <button type="submit" class="btn btn-success">Import Excel</button>
+
+</form>

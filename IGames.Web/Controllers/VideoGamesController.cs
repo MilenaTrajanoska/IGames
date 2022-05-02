@@ -157,6 +157,7 @@ namespace IGames.Web.Controllers
         }
 
         // GET: VideoGames/Create
+        [Authorize(Roles = Role.ADMIN)]
         public IActionResult Create()
         {
             ViewData["Genres"] = Genres;
@@ -168,7 +169,7 @@ namespace IGames.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
+        [Authorize(Roles = Role.ADMIN)]
         public IActionResult Create([Bind("Id,GameTitle,Image,Genre,Price,Quantity, Description")] VideoGame game)
         {
             if (ModelState.IsValid)
@@ -179,7 +180,7 @@ namespace IGames.Web.Controllers
             return View(game);
         }
 
-        // GET: Tickets/Edit/5
+        [Authorize(Roles = Role.ADMIN)]
         public IActionResult Edit(Guid? Id)
         {
             if (Id == null)
@@ -202,6 +203,7 @@ namespace IGames.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Role.ADMIN)]
         public IActionResult Edit(Guid id, [Bind("Id,GameTitle,Image,Genre,Price,Quantity, Description")] VideoGame game)
         {
             if (id != game.Id)
@@ -232,6 +234,7 @@ namespace IGames.Web.Controllers
         }
 
         // GET: VideoGames/Delete/5
+        [Authorize(Roles = Role.ADMIN)]
         public IActionResult Delete(Guid? id)
         {
             if (id == null)
@@ -251,6 +254,7 @@ namespace IGames.Web.Controllers
 
         // POST: VideoGames/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = Role.ADMIN)]
         public IActionResult DeleteConfirmed(Guid id)
         {
             this._videoGameService.DeleteVideoGame(id);

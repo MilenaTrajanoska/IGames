@@ -150,7 +150,7 @@ namespace IGames.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult ManageUsers()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -173,7 +173,7 @@ namespace IGames.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult AddUserToRole(string id)
         {
             var user = _userManager.FindByIdAsync(id).Result;
@@ -192,7 +192,7 @@ namespace IGames.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult AddUserToRole(UserAddOrRemoveRole addUserToRoleDto)
         {
 
@@ -238,7 +238,7 @@ namespace IGames.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult RemoveUserFromRole(string id)
         {
             var user = _userManager.FindByIdAsync(id).Result;
@@ -258,7 +258,7 @@ namespace IGames.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult RemoveUserFromRole(UserAddOrRemoveRole addUserToRoleDto)
         {
 

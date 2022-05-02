@@ -10,11 +10,11 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-controller="user" asp-action="Index">Import Users</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="account" asp-action="ManageUsers">Manage Users</a>
+            </li>
         }
 
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="account" asp-action="ManageUsers">Manage Users</a>
-        </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
         </li>

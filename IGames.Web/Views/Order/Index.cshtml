@@ -9,6 +9,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Customer Details</th>
+                    <th scope="col">Date of order</th>
                     <th scope="col">Number of games</th>
                     <th scope="col">Total Price</th>
                     <th></th>
@@ -31,10 +32,11 @@
                     <tr>
                         <th scope="row">@(i+1)</th>
                         <td>@item.ApplicationUser.Email</td>
+                        <td>@item.DateOfOrder</td>
                         <td>@numGames</td>
-                        <td>@totalPrice</td>
-                        <td><a class="btn btn-outline-info" asp-action="Details" asp-route-orderId="@item.Id">Details</a></td>
-                        <td><a class="btn btn-outline-success" asp-action="CreateOrderInvoice" asp-route-orderId="@item.Id">Create Invoice</a></td>
+                        <td>@totalPrice $</td>
+                        <td><a class="btn btn-outline-dark" asp-action="Details" asp-route-orderId="@item.Id">Details</a></td>
+                        <td><a class="btn btn-outline-warning" asp-action="CreateOrderInvoice" asp-route-orderId="@item.Id">Create Invoice</a></td>
                     </tr>
 
                 }

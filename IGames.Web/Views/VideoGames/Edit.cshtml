@@ -5,9 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="bg-info text-white p-5">
-    <h1>Edit Video Game: @Model.VideoGame</h1>
+<div class="p-5" style="background-color: #ffde4d">
+    <h1>Edit Video Game: @Model.GameTitle</h1>
 </div>
+<br />
 <h4 class="pt-5">Enter video game details:</h4>
 
 <hr />
@@ -48,7 +49,7 @@
                     <span asp-validation-for="Quantity" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create Video Game" class="btn btn-primary" />
+                    <input type="submit" value="Save Changes" class="btn btn-dark" />
                 </div>
             </form>
         </div>

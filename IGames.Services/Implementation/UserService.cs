@@ -80,9 +80,5 @@ namespace IGames.Services.Implementation
             return errorList;
         }
 
-        IEnumerable<User> IUserService.getAllUsers()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
